@@ -66,15 +66,3 @@ _Game/
 * **Setup progetto (20%)**: repository pulita, .gitignore, cartelle ordinate
 * **Funzionalità (30%)**: gioco stabile, ciclo Menu-Gioco-Menu funzionante
 * **Integrazione Blueprint (10%)**: blueprint usati correttamente per assemblaggio, non per logiche core
-
----
-
-Se vuoi aggiungere la parte del link alla repo, puoi semplicemente aggiungere alla fine:
-
-```
-## Repository
-
-[Link alla repository GitHub](https://github.com/tuo-user/tuo-repo)
-```
-
-Fammi sapere se vuoi una versione inglese, un formato diverso, o qualche personalizzazione!
