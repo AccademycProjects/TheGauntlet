@@ -10,6 +10,7 @@ class UInputAction;
 class UInputMappingContext;
 class USpringArmComponent;
 class UCameraComponent;
+class UGauntletHealthComponent;
 
 UCLASS()
 class THEGAUNTLET_API AGauntletCharacter : public ACharacter
@@ -32,6 +33,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<UCameraComponent> Camera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	TObjectPtr<UGauntletHealthComponent> HealthComponent;
 
 #pragma endregion
 
@@ -92,19 +96,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay|Movement")
 	float BrakingDecelerationWalking = 2048.f;
 
-	// Health system
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay|Health")
-	float MaxHealth = 100.f;
-
-	UPROPERTY(BlueprintReadOnly, Category = "Gameplay|Health")
-	float CurrentHealth;
-
-	UFUNCTION(BlueprintCallable, Category = "Gameplay|Health")
-	void TakeDamage(float Damage);
-
-	UFUNCTION(BlueprintCallable, Category = "Gameplay|Health")
-	bool IsAlive() const { return CurrentHealth > 0.f; }
-
 	// Key inventory
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Gameplay|Inventory")
 	TArray<FName> CollectedKeys;
@@ -114,6 +105,35 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Gameplay|Inventory")
 	bool HasKey(FName KeyID) const;
+
+#pragma endregion
+
+#pragma region Interaction
+
+public:
+	virtual void Tick(float DeltaTime) override;
+
+	// Interaction detection settings
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay|Interaction", meta = (ClampMin = "0.0"))
+	float InteractionRange = 300.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay|Interaction", meta = (ClampMin = "0.0", ClampMax = "180.0"))
+	float InteractionConeAngle = 45.f; // Half-angle in degrees
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Gameplay|Interaction|Debug")
+	bool bDebugDrawInteractionCone = false;
+
+	// Current focused interactable (can be used by UI)
+	UPROPERTY(BlueprintReadOnly, Category = "Gameplay|Interaction")
+	TObjectPtr<AActor> FocusedInteractable;
+
+protected:
+	/** Scans for interactables in front of the character */
+	void UpdateInteractionFocus();
+
+	/** Called when focused interactable changes */
+	UFUNCTION(BlueprintImplementableEvent, Category = "Gameplay|Interaction")
+	void OnInteractionFocusChanged(AActor* NewFocus, AActor* OldFocus);
 
 #pragma endregion
 };
