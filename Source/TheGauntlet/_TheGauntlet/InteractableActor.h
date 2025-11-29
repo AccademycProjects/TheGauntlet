@@ -5,37 +5,32 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "_TheGauntlet/Interfaces/Interactable.h"
-#include "GauntletKey.generated.h"
+#include "InteractableActor.generated.h"
 
-class USceneComponent;
-class UWidgetComponent;
 class AGauntletCharacter;
+class UDoorRequirementComponent;
 
+/**
+ * Base class for all interactable actors.
+ * Handles requirement component checking and IInteractable interface.
+ */
 UCLASS()
-class THEGAUNTLET_API AGauntletKey : public AActor, public IInteractable
+class THEGAUNTLET_API AInteractableActor : public AActor, public IInteractable
 {
 	GENERATED_BODY()
 	
 public:
-	AGauntletKey();
+	AInteractableActor();
 
 protected:
 	virtual void BeginPlay() override;
 
+	/** Requirement components that must be satisfied to interact */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	TObjectPtr<USceneComponent> DefaultSceneRoot;
-
-	/** Unique ID for this key */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Key")
-	FName KeyID = NAME_None;
-
-	/** Show interaction prompt widget */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Key")
-	bool bShowInteractionPrompt = true;
+	TArray<TObjectPtr<UDoorRequirementComponent>> RequirementComponents;
 
 public:
 	// IInteractable interface
 	virtual void Interact_Implementation(AGauntletCharacter* Interactor) override;
 	virtual bool CanInteract_Implementation(AGauntletCharacter* Interactor) const override;
-
 };

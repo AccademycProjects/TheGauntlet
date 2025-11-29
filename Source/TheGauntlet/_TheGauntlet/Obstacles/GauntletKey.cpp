@@ -2,21 +2,15 @@
 
 #include "_TheGauntlet/Obstacles/GauntletKey.h"
 #include "_TheGauntlet/Core/GauntletCharacter.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SceneComponent.h"
 #include "Components/WidgetComponent.h"
 
 AGauntletKey::AGauntletKey()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
-	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
-	RootComponent = MeshComponent;
-
-	InteractionWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("InteractionWidget"));
-	InteractionWidget->SetupAttachment(RootComponent);
-	InteractionWidget->SetWidgetSpace(EWidgetSpace::World);
-	InteractionWidget->SetDrawSize(FVector2D(100.f, 50.f));
-	InteractionWidget->SetVisibility(false);
+	DefaultSceneRoot = CreateDefaultSubobject<USceneComponent>(TEXT("DefaultSceneRoot"));
+	RootComponent = DefaultSceneRoot;
 }
 
 void AGauntletKey::BeginPlay()
