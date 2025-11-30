@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "_TheGauntlet/Core/GauntletCharacter.h"
 #include "_TheGauntlet/InteractableActor.h"
+#include "_TheGauntlet/Core/GauntletCharacter.h"
 #include "_TheGauntlet/RequirementComponent.h"
 #include "_TheGauntlet/ActivableComponent.h"
 

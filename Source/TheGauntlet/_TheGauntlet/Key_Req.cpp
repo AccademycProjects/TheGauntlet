@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "_TheGauntlet/DoorReq_Key.h"
+#include "_TheGauntlet/Key_Req.h"
 #include "_TheGauntlet/Core/GauntletCharacter.h"
 
-UDoorReq_Key::UDoorReq_Key()
+UKey_Req::UKey_Req()
 {
 }
 
-bool UDoorReq_Key::CheckRequirement_Implementation(AGauntletCharacter* Interactor)
+bool UKey_Req::CheckRequirement_Implementation(AGauntletCharacter* Interactor)
 {
 	if (!Interactor) return false;
 
