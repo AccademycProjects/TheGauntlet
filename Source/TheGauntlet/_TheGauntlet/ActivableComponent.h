@@ -23,7 +23,7 @@ public:
 	 * Override this in derived classes to implement custom activation logic.
 	 */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Activable")
-	void PerformActivation();
+	void PerformActivation(AGauntletCharacter* Interactor);
 
 protected:
 	virtual void BeginPlay() override;

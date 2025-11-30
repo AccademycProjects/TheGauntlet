@@ -42,7 +42,7 @@ protected:
 	void Deactivate();
 
 public:
-	virtual void PerformActivation_Implementation() override;
+	virtual void PerformActivation_Implementation(AGauntletCharacter* Interactor) override;
 
 	/** Manually deactivate the target */
 	UFUNCTION(BlueprintCallable, Category = "Timed Controller")

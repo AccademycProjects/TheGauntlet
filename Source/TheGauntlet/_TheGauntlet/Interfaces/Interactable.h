@@ -26,6 +26,10 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
 	void Interact(AGauntletCharacter* Interactor);
 
+	/** Called when the system interacts with this object */
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
+	void SystemInteract(AGauntletCharacter* Interactor);
+
 	/** Returns whether this object can currently be interacted with */
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Interaction")
 	bool CanInteract(AGauntletCharacter* Interactor) const;

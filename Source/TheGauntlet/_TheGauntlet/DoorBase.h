@@ -28,8 +28,8 @@ protected:
 	bool bIsOpen = false;
 
 public:
-	// IInteractable interface
-	virtual void Interact_Implementation(AGauntletCharacter* Interactor) override;
+	/** Event called when the door is interacted with */
+	virtual void OnInteracted_Implementation(AGauntletCharacter* Interactor) override;
 
 	/** Opens the door */
 	UFUNCTION(BlueprintCallable, Category = "Door")

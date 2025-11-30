@@ -1,8 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
-#include "_TheGauntlet/InteractableActor.h"
 #include "_TheGauntlet/Core/GauntletCharacter.h"
+#include "_TheGauntlet/InteractableActor.h"
 #include "_TheGauntlet/RequirementComponent.h"
+#include "_TheGauntlet/ActivableComponent.h"
 
 AInteractableActor::AInteractableActor()
 {
@@ -15,9 +16,50 @@ void AInteractableActor::BeginPlay()
 
 	// Find all requirement components
 	GetComponents<URequirementComponent>(RequirementComponents);
+	
+	// Find all activable components
+	GetComponents<UActivableComponent>(ActivableComponents);
+	
+	// Remove invalid entries (shouldn't happen, but safety check)
+	RequirementComponents.RemoveAll([](const TObjectPtr<URequirementComponent>& Comp) { return !IsValid(Comp); });
+	ActivableComponents.RemoveAll([](const TObjectPtr<UActivableComponent>& Comp) { return !IsValid(Comp); });
 }
 
 void AInteractableActor::Interact_Implementation(AGauntletCharacter* Interactor)
+{
+    if (!Interactor) 
+		return;
+
+	if (bIsLockedForPlayerInteraction)
+        return;
+
+	IInteractable::Execute_SystemInteract(this, Interactor);
+}
+
+void AInteractableActor::SystemInteract_Implementation(AGauntletCharacter* Interactor)
+{
+    if (!Interactor)
+        return;
+
+    // Check requirements
+    if (!IInteractable::Execute_CanInteract(this, Interactor))
+        return;
+
+    // Activate all activable components
+    for (UActivableComponent* Comp : ActivableComponents)
+    {
+        if (IsValid(Comp))
+        {
+            Comp->PerformActivation(Interactor);
+        }
+    }
+
+    // Call overridable virtual method for derived classes
+    OnInteracted(Interactor);
+}
+
+
+void AInteractableActor::OnInteracted_Implementation(AGauntletCharacter* Interactor)
 {
 	// Base implementation does nothing
 	// Override in derived classes

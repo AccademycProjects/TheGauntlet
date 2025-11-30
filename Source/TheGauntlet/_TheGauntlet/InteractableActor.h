@@ -9,6 +9,7 @@
 
 class AGauntletCharacter;
 class URequirementComponent;
+class UActivableComponent;
 
 /**
  * Base class for all interactable actors.
@@ -29,8 +30,21 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TArray<TObjectPtr<URequirementComponent>> RequirementComponents;
 
+	/** Activable components activate after interaction */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	TArray<TObjectPtr<UActivableComponent>> ActivableComponents;
+
+	/** If true, the player cannot interact with this object directly */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interactable")
+	bool bIsLockedForPlayerInteraction = false;
+
+	/** Event called when the actor is interacted with */
+	UFUNCTION(BlueprintNativeEvent, Category="Interactable")
+	void OnInteracted(AGauntletCharacter* Interactor);
+
 public:
 	// IInteractable interface
 	virtual void Interact_Implementation(AGauntletCharacter* Interactor) override;
+	virtual void SystemInteract_Implementation(AGauntletCharacter* Interactor) override;
 	virtual bool CanInteract_Implementation(AGauntletCharacter* Interactor) const override;
 };

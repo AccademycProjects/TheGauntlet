@@ -14,15 +14,6 @@ UController_Timed::UController_Timed()
 void UController_Timed::BeginPlay()
 {
 	Super::BeginPlay();
-
-	// If no interactor character is set, try to find the player
-	if (!InteractorCharacter)
-	{
-		if (APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0))
-		{
-			InteractorCharacter = Cast<AGauntletCharacter>(PlayerPawn);
-		}
-	}
 }
 
 void UController_Timed::EndPlay(const EEndPlayReason::Type EndPlayReason)
@@ -36,14 +27,16 @@ void UController_Timed::EndPlay(const EEndPlayReason::Type EndPlayReason)
 	Super::EndPlay(EndPlayReason);
 }
 
-void UController_Timed::PerformActivation_Implementation()
+void UController_Timed::PerformActivation_Implementation(AGauntletCharacter* Interactor)
 {
-	if (!TargetActor || !InteractorCharacter) return;
+	if (!Interactor || !TargetActor) return;
+
+	InteractorCharacter = Interactor;
 
 	// Interact with the target actor (e.g., open door)
 	if (TargetActor->Implements<UInteractable>())
 	{
-		IInteractable::Execute_Interact(TargetActor, InteractorCharacter);
+		IInteractable::Execute_SystemInteract(TargetActor, Interactor);
 	}
 
 	// Set timer to deactivate after duration
@@ -66,8 +59,10 @@ void UController_Timed::Deactivate()
 	// Interact again to deactivate (e.g., close door)
 	if (TargetActor->Implements<UInteractable>())
 	{
-		IInteractable::Execute_Interact(TargetActor, InteractorCharacter);
+		IInteractable::Execute_SystemInteract(TargetActor, InteractorCharacter);
 	}
+
+	InteractorCharacter = nullptr;
 }
 
 void UController_Timed::DeactivateNow()

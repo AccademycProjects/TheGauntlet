@@ -20,4 +20,3 @@ bool UDoorReq_Key::CheckRequirement_Implementation(AGauntletCharacter* Interacto
 	// Check if player has the required key
 	return Interactor->HasKey(RequiredKeyID);
 }
-

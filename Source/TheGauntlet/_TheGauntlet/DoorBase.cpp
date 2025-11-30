@@ -17,17 +17,9 @@ void ADoorBase::BeginPlay()
 	Super::BeginPlay();
 }
 
-void ADoorBase::Interact_Implementation(AGauntletCharacter* Interactor)
+void ADoorBase::OnInteracted_Implementation(AGauntletCharacter* Interactor)
 {
-	if (!Interactor) return;
-
-	// Check if interaction is allowed (base class handles requirement checking)
-	if (!IInteractable::Execute_CanInteract(this, Interactor))
-	{
-		return;
-	}
-
-	ToggleDoor();
+    ToggleDoor();
 }
 
 void ADoorBase::OpenDoor()
