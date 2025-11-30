@@ -7,7 +7,7 @@ UDoorReq_Key::UDoorReq_Key()
 {
 }
 
-bool UDoorReq_Key::CheckRequirement_Implementation(AGauntletCharacter* Interactor) const
+bool UDoorReq_Key::CheckRequirement_Implementation(AGauntletCharacter* Interactor)
 {
 	if (!Interactor) return false;
 

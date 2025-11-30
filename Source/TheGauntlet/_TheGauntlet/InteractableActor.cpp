@@ -2,7 +2,7 @@
 
 #include "_TheGauntlet/InteractableActor.h"
 #include "_TheGauntlet/Core/GauntletCharacter.h"
-#include "_TheGauntlet/DoorRequirementComponent.h"
+#include "_TheGauntlet/RequirementComponent.h"
 
 AInteractableActor::AInteractableActor()
 {
@@ -14,7 +14,7 @@ void AInteractableActor::BeginPlay()
 	Super::BeginPlay();
 
 	// Find all requirement components
-	GetComponents<UDoorRequirementComponent>(RequirementComponents);
+	GetComponents<URequirementComponent>(RequirementComponents);
 }
 
 void AInteractableActor::Interact_Implementation(AGauntletCharacter* Interactor)
@@ -28,7 +28,7 @@ bool AInteractableActor::CanInteract_Implementation(AGauntletCharacter* Interact
 	if (!Interactor) return false;
 
 	// Check all requirement components
-	for (UDoorRequirementComponent* Requirement : RequirementComponents)
+	for (URequirementComponent* Requirement : RequirementComponents)
 	{
 		if (!IsValid(Requirement))
 			continue;

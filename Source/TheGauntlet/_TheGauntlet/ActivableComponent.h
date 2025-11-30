@@ -4,19 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "ActivableComponet.generated.h"
+#include "ActivableComponent.generated.h"
 
 /**
  * Base abstract component for activable objects.
  * Inherit from this to create components that can be activated (doors, platforms, etc.)
  */
 UCLASS(Abstract, ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class THEGAUNTLET_API UActivableComponet : public UActorComponent
+class THEGAUNTLET_API UActivableComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
 public:
-	UActivableComponet();
+	UActivableComponent();
 
 	/**
 	 * Activates this component.

@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "_TheGauntlet/ActivableComponet.h"
+#include "_TheGauntlet/ActivableComponent.h"
 #include "Controller_Timed.generated.h"
 
 class AInteractableActor;
@@ -13,7 +13,7 @@ class AGauntletCharacter;
  * Component that activates an InteractableActor for a specified duration
  */
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
-class THEGAUNTLET_API UController_Timed : public UActivableComponet
+class THEGAUNTLET_API UController_Timed : public UActivableComponent
 {
 	GENERATED_BODY()
 

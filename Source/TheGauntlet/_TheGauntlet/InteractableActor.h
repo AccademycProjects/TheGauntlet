@@ -8,7 +8,7 @@
 #include "InteractableActor.generated.h"
 
 class AGauntletCharacter;
-class UDoorRequirementComponent;
+class URequirementComponent;
 
 /**
  * Base class for all interactable actors.
@@ -27,7 +27,7 @@ protected:
 
 	/** Requirement components that must be satisfied to interact */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	TArray<TObjectPtr<UDoorRequirementComponent>> RequirementComponents;
+	TArray<TObjectPtr<URequirementComponent>> RequirementComponents;
 
 public:
 	// IInteractable interface
